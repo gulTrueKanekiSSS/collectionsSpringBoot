@@ -9,6 +9,7 @@ import pro.sky.listspring.Employee;
 import pro.sky.listspring.service.EmployeeService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -30,29 +31,27 @@ public class EmployeeController {
     }
 
     @GetMapping("/remove")
-    public String deletingEmployee(@RequestParam(value = "name", required = true) String name,
-                                   @RequestParam(value="lastName", required = true) String lastName){
-        if (name == null || lastName == null){
+    public String deletingEmployee(@RequestParam(value = "pk", required = true) Integer pk){
+        if (pk == null){
             throw new IllegalArgumentException("Вы не передали один из параметров");
         }
-        employeeService.deleteEmployee(name, lastName);
+        employeeService.deleteEmployee(pk);
         return "Employee deleted";
     }
 
     @GetMapping("/find")
-    public String findingEmployee(@RequestParam(value = "name", required = true) String name,
-                                   @RequestParam(value="lastName", required = true) String lastName) {
-        if (name == null || lastName == null) {
+    public String findingEmployee(@RequestParam(value = "pk", required = true) Integer pk) {
+        if (pk == null) {
             throw new IllegalArgumentException("Вы не передали один из параметров");
         }
-        employeeService.foundEmployee(name, lastName);
-        return "Employee found";
+
+        return employeeService.foundEmployee(pk);
     }
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getAllEmployees(){
-        List<Employee> employees = employeeService.getEmployees();
-        return ResponseEntity.ok(employees);
+    public Map<Integer, Employee> getAllEmployees(){
+        Map<Integer, Employee> employees = employeeService.getEmployees();
+        return employees;
     }
 
 

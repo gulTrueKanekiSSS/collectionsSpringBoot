@@ -5,59 +5,52 @@ import pro.sky.listspring.Employee;
 import pro.sky.listspring.exception.EmployeeNotFoundException;
 import pro.sky.listspring.exception.EmployeeStorageIsFullException;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployeeService {
-    List <Employee> employees = new ArrayList<>();
+    Map <Integer, Employee> employees = new HashMap<>();
     final int maxAmountOfEmp = 10;
 
     public EmployeeService(){
-        employees.add(new Employee("Alice", "Shreider"));
-        employees.add(new Employee("Kevin", "Dolberg"));
-        employees.add(new Employee("Kez", "Birdsamurai"));
+        employees.put(1, new Employee("Alice", "Shreider"));
+        employees.put(2, new Employee("Kevin", "Dolberg"));
+        employees.put(3, new Employee("Kez", "Birdsamurai"));
     }
 
     public void addEmployee(String name, String lastName) {
+
+        Integer pk = employees.size() + 1;  //Primary key for next employee in hashSet
+
         if (employees.size() >= maxAmountOfEmp) {
             throw new EmployeeStorageIsFullException();
         }
-        Employee employee = new Employee(name, lastName);
-        if (!foundEmployee(employee.getName(), employee.getLastname())) {
-            employees.add(employee);
-        } else if (foundEmployee(employee.getName(), employee.getLastname())) {
+        employees.put(pk, new Employee(name, lastName));
+    }
+
+    public void deleteEmployee(Integer pk){
+
+        if (employees.containsKey(pk)){
+            employees.remove(pk);
+        }
+        else {
             throw new EmployeeNotFoundException();
         }
     }
 
-    public void deleteEmployee(String name, String lastName){
-        Iterator<Employee> iterator = employees.iterator();
-        while(iterator.hasNext()) {
-            Employee employee = iterator.next();
-            if (employee.getName().equals(name) && employee.getLastname().equals(lastName)){
-                iterator.remove();
-                System.out.println("Employee: " + name + " " + lastName + " has been removed");
-                return;
-            }
-        }
-        throw new EmployeeNotFoundException();
-    }
-
-    public boolean foundEmployee(String name, String lastName) {
-        Iterator<Employee> iterator = employees.iterator();
-        while (iterator.hasNext()) {
-            Employee employee = iterator.next();
-            if (employee.getName().equals(name) && employee.getLastname().equals(lastName)) {
-                System.out.println("Employee has been found");
-                return true;
-            }
+    public boolean checkEmployee(Integer pk){
+        if (employees.containsKey(pk)){
+            return true;
         }
         return false;
     }
 
-    public List<Employee> getEmployees() {
+    public String foundEmployee(Integer pk) {
+        Employee employee = employees.get(pk);
+        return employee.getName() + " " + employee.getLastname();
+    }
+
+    public Map<Integer, Employee> getEmployees() {
         return employees;
     }
 }
