@@ -10,6 +10,7 @@ import pro.sky.listspring.service.EmployeeService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/employee")
@@ -22,11 +23,13 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public String addingEmployee(@RequestParam(value = "name", required = true) String name,
-                              @RequestParam(value="lastName", required = true) String lastName){
+                              @RequestParam(value="lastName", required = true) String lastName,
+                                 @RequestParam(value="department", required = true) int department,
+                                 @RequestParam(value="salary", required = true) int salary){
         if (name == null || lastName == null){
             throw new IllegalArgumentException("Вы не передали один из параметров");
         }
-        employeeService.addEmployee(name, lastName);
+        employeeService.addEmployee(name, lastName, department, salary);
         return "Employee added";
     }
 
@@ -53,6 +56,4 @@ public class EmployeeController {
         Map<Integer, Employee> employees = employeeService.getEmployees();
         return employees;
     }
-
-
 }

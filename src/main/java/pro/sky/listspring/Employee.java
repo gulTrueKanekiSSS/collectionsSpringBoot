@@ -4,6 +4,8 @@ import java.util.Objects;
 public class Employee {
     private String name;
     private String lastname;
+    private int salary;
+    private int department;
 
     private static int idCounter = 0;
     private final int idEmployee;
@@ -18,6 +20,21 @@ public class Employee {
         this.name = name;
     }
 
+    public int getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
 
     // getter for lastname field
     public String getLastname() {
@@ -30,10 +47,11 @@ public class Employee {
     }
 
     // constructor for Employee class
-    public Employee(String name, String lastname) {
+    public Employee(String name, String lastname, int department, int salary) {
         this.name = name;
         this.lastname = lastname;
-
+        this.department = department;
+        this.salary = salary;
         this.idEmployee = idCounter++;
     }
 
@@ -44,6 +62,8 @@ public class Employee {
                 "id=" + idEmployee +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
+                ", department='" + department + '\'' +
+                ", salary='" + salary + '\'' +
                 '}';
     }
 
