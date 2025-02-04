@@ -2,6 +2,7 @@ package pro.sky.listspring.service;
 
 import org.springframework.stereotype.Service;
 import pro.sky.listspring.Employee;
+import pro.sky.listspring.exception.EmployeeNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -34,17 +35,17 @@ public class DepartmentService extends EmployeeService{
                 .sum();
     }
     // for find minimal salary
-    public Optional<Employee> employeeWithMinSalaryDepartment(int departmentId) {
+    public Employee employeeWithMinSalaryDepartment(int departmentId) {
         return employees.values().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
-                .min(Comparator.comparing(Employee::getSalary));
+                .min(Comparator.comparing(Employee::getSalary)).orElseThrow(EmployeeNotFoundException::new);
     }
     //
 //    // for fiend the biggest salary
-    public Optional<Employee> employeeWithMaxSalaryDepartment(int departmentId) {
+    public Employee employeeWithMaxSalaryDepartment(int departmentId) {
         return employees.values().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
-                .max(Comparator.comparing(Employee::getSalary));
+                .max(Comparator.comparing(Employee::getSalary)).orElseThrow(EmployeeNotFoundException::new);
     }
 
     // for count average salary in all departments
