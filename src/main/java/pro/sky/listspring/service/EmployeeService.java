@@ -1,12 +1,14 @@
 package pro.sky.listspring.service;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import pro.sky.listspring.Employee;
 import pro.sky.listspring.exception.EmployeeNotFoundException;
 import pro.sky.listspring.exception.EmployeeStorageIsFullException;
 import java.util.*;
 
-@Service
+@Service("employeeService")
+@Primary
 public class EmployeeService {
     Map<Integer, Employee> employees = new HashMap<>();
     final int maxAmountOfEmp = 10;

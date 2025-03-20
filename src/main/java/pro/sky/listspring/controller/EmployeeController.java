@@ -1,5 +1,6 @@
 package pro.sky.listspring.controller;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService){
+    public EmployeeController(@Qualifier("employeeService") EmployeeService employeeService){
         this.employeeService = employeeService;
     }
 
@@ -51,9 +52,9 @@ public class EmployeeController {
         return employeeService.foundEmployee(pk);
     }
 
-    @GetMapping
-    public Map<Integer, Employee> getAllEmployees(){
-        Map<Integer, Employee> employees = employeeService.getEmployees();
-        return employees;
-    }
+//    @GetMapping()
+//    public Map<Integer, Employee> getAllEmployees(){
+//        Map<Integer, Employee> employees = employeeService.getEmployees();
+//        return employees;
+//    }
 }

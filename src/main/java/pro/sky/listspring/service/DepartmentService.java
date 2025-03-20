@@ -6,9 +6,10 @@ import pro.sky.listspring.exception.EmployeeNotFoundException;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-@Service
+@Service("departmentService")
 public class DepartmentService extends EmployeeService{
 
     public List<Employee> getEmployeesInDepartment(int departmentId){
@@ -57,4 +58,5 @@ public class DepartmentService extends EmployeeService{
     public int avgSalaryInDepartment(int department){
         return getSumOfSalaryInDepartment(department) / amountEmployeesInDepartment(department);
     }
+
 }
