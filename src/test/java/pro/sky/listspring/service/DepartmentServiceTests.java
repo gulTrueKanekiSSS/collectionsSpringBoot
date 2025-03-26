@@ -5,11 +5,14 @@ import org.junit.jupiter.api.Test;
 import pro.sky.listspring.Employee;
 import pro.sky.listspring.exception.EmployeeNotFoundException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DepartmentServiceTests {
 
@@ -19,6 +22,13 @@ public class DepartmentServiceTests {
     @BeforeEach
     void setUp(){
         employeeService = mock(EmployeeService.class);
+
+        Map<Integer, Employee> employees = new HashMap<>();
+        employees.put(1, new Employee("Alice", "Shreider", 1, 10000));
+        employees.put(2, new Employee("Kevin", "Dolberg", 1, 13000));
+        employees.put(3, new Employee("Kez", "Birdsamurai", 2, 5000));
+        when(employeeService.getEmployees()).thenReturn(employees);
+
         departmentService = new DepartmentService(employeeService);
     }
 

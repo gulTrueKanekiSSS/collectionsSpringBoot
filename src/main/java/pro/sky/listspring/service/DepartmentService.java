@@ -22,45 +22,45 @@ public class DepartmentService {
     }
 
     public List<Employee> getEmployeesInDepartment(int departmentId){
-        return employeeService.employees.values().stream()
+        return employeeService.getEmployees().values().stream()
                 .filter(e -> e.getDepartment() == departmentId).toList();
     }
 
     // for count employees in certain department
     public int amountEmployeesInDepartment(int department) {
-        return (int) employeeService.employees.values().stream()
+        return (int) employeeService.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment() == department).count();
     }
 
     // for count sum of salaries' employees in all departments
     public int getSumOfSalaryAllDepartment() {
-        return employeeService.employees.values().stream().mapToInt(Employee::getSalary).sum();
+        return employeeService.getEmployees().values().stream().mapToInt(Employee::getSalary).sum();
     }
 
     // for count sum of salaries' employees in certain department
     public int getSumOfSalaryInDepartment(int department) {
-        return employeeService.employees.values().stream()
+        return employeeService.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .mapToInt(Employee::getSalary)
                 .sum();
     }
     // for find minimal salary
     public Employee employeeWithMinSalaryDepartment(int departmentId) {
-        return employeeService.employees.values().stream()
+        return employeeService.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
                 .min(Comparator.comparing(Employee::getSalary)).orElseThrow(EmployeeNotFoundException::new);
     }
     //
 //    // for fiend the biggest salary
     public Employee employeeWithMaxSalaryDepartment(int departmentId) {
-        return employeeService.employees.values().stream()
+        return employeeService.getEmployees().values().stream()
                 .filter(employee -> employee.getDepartment() == departmentId)
                 .max(Comparator.comparing(Employee::getSalary)).orElseThrow(EmployeeNotFoundException::new);
     }
 
     // for count average salary in all departments
     public int avgSalaryAllDepartments(){
-        return getSumOfSalaryAllDepartment() / employeeService.employees.size();
+        return getSumOfSalaryAllDepartment() / employeeService.getEmployees().size();
     }
 
     // for count average salary in certain department

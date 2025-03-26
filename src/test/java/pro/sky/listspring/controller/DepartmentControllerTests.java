@@ -39,8 +39,8 @@ public class DepartmentControllerTests {
 
         mockMvc.perform(get("/department/employees"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.1.firstName").value("test"))
-                .andExpect(jsonPath("$.2.firstName").value("test2"));
+                .andExpect(jsonPath("$.1.name").value("test"))
+                .andExpect(jsonPath("$.2.name").value("test2"));
     }
 
     // Тест для эндпоинта /department/max-salary?departmentId=1
@@ -52,7 +52,7 @@ public class DepartmentControllerTests {
         mockMvc.perform(get("/department/max-salary")
                         .param("departmentId", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName").value("max"))
+                .andExpect(jsonPath("$.name").value("max"))
                 .andExpect(jsonPath("$.salary").value(15000));
     }
 
@@ -65,7 +65,7 @@ public class DepartmentControllerTests {
         mockMvc.perform(get("/department/min-salary")
                         .param("departmentId", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.firstName").value("min"))
+                .andExpect(jsonPath("$.name").value("min"))
                 .andExpect(jsonPath("$.salary").value(8000));
     }
 
@@ -81,8 +81,8 @@ public class DepartmentControllerTests {
         mockMvc.perform(get("/department/department_employees")
                         .param("departmentId", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].firstName").value("emp1"))
-                .andExpect(jsonPath("$[1].firstName").value("emp2"));
+                .andExpect(jsonPath("$[0].name").value("emp1"))
+                .andExpect(jsonPath("$[1].name").value("emp2"));
     }
 
     // Тест для эндпоинта /department/{id}/salary/sum
