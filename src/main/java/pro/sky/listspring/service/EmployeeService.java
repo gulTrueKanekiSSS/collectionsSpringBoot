@@ -1,6 +1,7 @@
 package pro.sky.listspring.service;
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pro.sky.listspring.Employee;
 import pro.sky.listspring.exception.EmployeeNotFoundException;

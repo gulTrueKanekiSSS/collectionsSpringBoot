@@ -9,14 +9,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
 public class DepartmentServiceTests {
 
     private DepartmentService departmentService;
+    private EmployeeService employeeService;
 
     @BeforeEach
     void setUp(){
-        departmentService = new DepartmentService();
+        employeeService = mock(EmployeeService.class);
+        departmentService = new DepartmentService(employeeService);
     }
 
     @Test
